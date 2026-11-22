@@ -43,7 +43,10 @@ jobs:
             exit 0
           fi
           printf '%s\n' 'Hosts the video attachment used by the README trailer. No action needed.' > "$RUNNER_TEMP/trailer-body.md"
-          issue=$(gh issue create --title 'README trailer attachment' --body-file "$RUNNER_TEMP/trailer-body.md" --attach Assets/terminal-games-trailer.mp4)
+          if ! issue=$(gh issue create --title 'README trailer attachment' --body-file "$RUNNER_TEMP/trailer-body.md" --attach Assets/terminal-games-trailer.mp4 2> "$RUNNER_TEMP/upload-error.txt"); then
+            python3 -c 'import os;from pathlib import Path;s=(Path(os.environ["RUNNER_TEMP"])/"upload-error.txt").read_text();print("::error::"+s.replace("%","%25").replace("\n","%0A"))'
+            exit 1
+          fi
           gh issue view "$issue" --json body --jq .body > "$RUNNER_TEMP/trailer-upload.md"
           gh issue close "$issue"
           python3 - <<'PY'
