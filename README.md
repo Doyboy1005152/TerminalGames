@@ -18,6 +18,12 @@ One ZIP contains installers for all three platforms. Download it, extract it, an
 
 Find teammates, chat with other players, and follow updates.
 
+## Game trailer
+
+[![Watch the Terminal Games trailer](./media/trailer-preview.jpg)](https://github.com/Doyboy1005152/TerminalGames/raw/refs/heads/main/media/terminal-games-trailer.mp4)
+
+[Watch or download the trailer](https://github.com/Doyboy1005152/TerminalGames/raw/refs/heads/main/media/terminal-games-trailer.mp4).
+
 ## Installation
 
 ### Windows
@@ -47,16 +53,26 @@ sh "install-linux.sh"
 
 ## What's inside?
 
-- **Pong** — challenge the AI or play with friends.
-- **Flappy Bird** — dodge pipes and chase a high score.
-- **Maze Race** — find the exit as fast as you can.
-- **Tetris** — stack blocks and clear lines.
-- **Space Invaders** — battle alien waves and bosses.
-- **Crossy Road** — navigate traffic and river crossings.
-- **Levels** — climb through platforming challenges.
-- **Pac-Man** — collect pellets and avoid the ghosts.
+<!-- PUBLIC-GAMES:START -->
 
-Plus multiplayer parties, matchmaking, drawing-and-guessing games, leaderboards, friends, chat, customizable themes, and hidden secrets to discover.
+- **Skribbl** — Draw and guess with 2–4 party members.
+- **Capture the Flag** — Only available in party.
+- **Pong** — Paddle battles against the AI.
+- **Flappy Bird** — Dodge pipes and chase your best score.
+- **Maze Race** — Find the exit and beat your best time.
+- **Tetris** — Stack, clear lines and race the clock.
+- **Space Invaders** — 100 levels of alien fleets and bosses.
+- **Crossy Road** — Hop past traffic and ride river logs.
+- **Levels** — Jump up platforms and climb to new heights.
+- **Pac-Man** — Eat pellets, dodge ghosts and chase high scores.
+- **2v2 Pong** — Team paddle battles with four players.
+- **Maze Relay** — Team maze relay for four players.
+- **Tetris Race** — Race friends while stacking and clearing lines.
+- **Pac-Man Race** — Race friends through pellet-filled mazes.
+
+<!-- PUBLIC-GAMES:END -->
+
+Plus multiplayer parties, matchmaking, leaderboards, friends, chat, customizable themes, and hidden secrets to discover.
 
 ## Make it yours
 
