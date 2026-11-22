@@ -1,12 +1,22 @@
+![Terminal Games original banner](./banner-original.png)
+
 # Terminal Games
 
 **An arcade in your terminal.** Play classic-style games, challenge friends, join parties, and unlock new ways to customize your game.
 
 ## Download
 
-### [Download Terminal Games — Windows, macOS & Linux](./Terminal-Games-Installers.zip?raw=true)
+[![Download Terminal Games](./download-button.svg)](./terminal-games-installers.zip?raw=true)
+
+**Windows · macOS · Linux**
 
 One ZIP contains installers for all three platforms. Download it, extract it, and run the installer for your computer. The installer downloads the latest public version of Terminal Games.
+
+## Discord
+
+[![Join Discord](./discord-button.svg)](https://discord.gg/nnVcGzDpCY)
+
+Find teammates, chat with other players, and follow updates.
 
 ## Installation
 
@@ -14,13 +24,13 @@ One ZIP contains installers for all three platforms. Download it, extract it, an
 
 1. Download the installer ZIP above.
 2. Right-click the ZIP and select **Extract All**.
-3. Open **`INSTALL WINDOWS.bat`**.
+3. Open **`install-windows.bat`**.
 4. Follow the prompts to install and launch the game.
 
 ### macOS
 
 1. Download and extract the installer ZIP.
-2. Open **`INSTALL MAC.command`**.
+2. Open **`install-mac.command`**.
 3. Follow the prompts to install and launch the game.
 
 ### Linux
@@ -30,7 +40,7 @@ One ZIP contains installers for all three platforms. Download it, extract it, an
 3. Run:
 
 ```sh
-sh "INSTALL LINUX.sh"
+sh "install-linux.sh"
 ```
 
 **An internet connection is required to download the game.** Follow any Python setup instructions shown by the installer.

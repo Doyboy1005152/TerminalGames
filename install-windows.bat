@@ -1,0 +1,58 @@
+@echo off
+setlocal
+title Terminal Games Installer
+set "TG_INSTALLER_SELF=%~f0"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "$text=[IO.File]::ReadAllText($env:TG_INSTALLER_SELF); $body=($text -split '(?m)^::TG_POWERSHELL_START\r?$',2)[1]; & ([scriptblock]::Create($body))"
+if "%errorlevel%"=="76" exit
+if errorlevel 1 pause
+exit /b
+::TG_POWERSHELL_START
+$ErrorActionPreference = 'Stop'
+function Find-Python {
+    $candidates = @()
+    $py = Get-Command py.exe -ErrorAction SilentlyContinue
+    if ($py) {
+        try {
+        $found = & $py.Source -3 -c "import sys; assert sys.version_info >= (3,9); print(sys.executable)" 2>$null
+        if ($LASTEXITCODE -eq 0 -and $found) { return [string]($found | Select-Object -Last 1) }
+        } catch {}
+    }
+    $candidates += Join-Path $env:LOCALAPPDATA 'Programs\Python\Python313\python.exe'
+    $command = Get-Command python.exe -ErrorAction SilentlyContinue
+    if ($command -and $command.Source -notlike '*\WindowsApps\*') { $candidates += $command.Source }
+    foreach ($candidate in $candidates) {
+        if (Test-Path $candidate) {
+            & $candidate -c "import sys; assert sys.version_info >= (3,9)" 2>$null
+            if ($LASTEXITCODE -eq 0) { return $candidate }
+        }
+    }
+    return $null
+}
+try {
+    $python = Find-Python
+    if (-not $python) {
+        Write-Host 'Python is missing. Downloading the official installer...'
+        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+        $architecture = $env:PROCESSOR_ARCHITECTURE
+        if ($env:PROCESSOR_ARCHITEW6432) { $architecture = $env:PROCESSOR_ARCHITEW6432 }
+        $suffix = switch ($architecture) { 'ARM64' {'-arm64'} 'AMD64' {'-amd64'} default {''} }
+        $temporary = Join-Path ([IO.Path]::GetTempPath()) ('terminal-games-' + [guid]::NewGuid())
+        New-Item -ItemType Directory -Path $temporary | Out-Null
+        try {
+            $installer = Join-Path $temporary 'python-installer.exe'
+            Invoke-WebRequest -UseBasicParsing -Uri "https://www.python.org/ftp/python/3.13.17/python-3.13.17$suffix.exe" -OutFile $installer
+            $signature = Get-AuthenticodeSignature $installer
+            if ($signature.Status -ne 'Valid' -or $signature.SignerCertificate.Subject -notmatch 'Python Software Foundation') { throw 'Python installer signature check failed.' }
+            Write-Host 'Installing Python for your Windows account...'
+            $process = Start-Process -FilePath $installer -ArgumentList '/passive InstallAllUsers=0 PrependPath=1 Include_test=0 Include_launcher=0' -Wait -PassThru
+            if ($process.ExitCode -notin @(0,3010)) { throw "Python installation failed (code $($process.ExitCode))." }
+        } finally { Remove-Item -LiteralPath $temporary -Recurse -Force -ErrorAction SilentlyContinue }
+        $python = Find-Python
+        if (-not $python) { throw 'Python could not be found after installation. Restart Windows and try START HERE again.' }
+    }
+    & $python -c "import base64;exec(compile(base64.b64decode('IiIiRG93bmxvYWQgdGhlIGN1cnJlbnQgZ2FtZSwgdXBkYXRlIHRoZSBpbnN0YWxsZWQgY29weSwgdGhlbiBsYXVuY2ggaXQuIiIiCmltcG9ydCBoYXNobGliLGlvLGpzb24sb3Msc3VicHJvY2VzcyxzeXMsdGVtcGZpbGUsemlwZmlsZQpmcm9tIHBhdGhsaWIgaW1wb3J0IFBhdGgsUHVyZVBvc2l4UGF0aApmcm9tIHVybGxpYi5yZXF1ZXN0IGltcG9ydCB1cmxvcGVuCkJBU0U9J2h0dHBzOi8vbWFpbGluZy1jb21taXNzaW9uZXItbGFwdG9wcy1yZXNwZWN0aXZlLnRyeWNsb3VkZmxhcmUuY29tJwoKZGVmIGZldGNoKHBhdGgsbGltaXQpOgogICAgd2l0aCB1cmxvcGVuKEJBU0UrcGF0aCx0aW1lb3V0PTQ1KSBhcyByZXNwb25zZTpkYXRhPXJlc3BvbnNlLnJlYWQobGltaXQrMSkKICAgIGlmIGxlbihkYXRhKT5saW1pdDpyYWlzZSBWYWx1ZUVycm9yKCdEb3dubG9hZCBpcyB0b28gbGFyZ2UuJykKICAgIHJldHVybiBkYXRhCgpkZWYgaW5zdGFsbF9sYXRlc3QoZGVzdGluYXRpb24pOgogICAgcHJpbnQoJ0Rvd25sb2FkaW5nIHRoZSBsYXRlc3QgVGVybWluYWwgR2FtZXMuLi4nLGZsdXNoPVRydWUpCiAgICBwYWNrZXQ9anNvbi5sb2FkcyhmZXRjaCgnL3VwZGF0ZXMvc3RhYmxlLmpzb24nLDE2Mzg0KSkKICAgIGJsb2I9ZmV0Y2goJy91cGRhdGVzL3N0YWJsZS56aXAnLDMyKjEwMjQqMTAyNCkKICAgIGlmIGxlbihibG9iKSE9cGFja2V0WydzaXplJ10gb3IgaGFzaGxpYi5zaGEyNTYoYmxvYikuaGV4ZGlnZXN0KCkhPXBhY2tldFsnc2hhMjU2J106CiAgICAgICAgcmFpc2UgVmFsdWVFcnJvcignRG93bmxvYWQgdmVyaWZpY2F0aW9uIGZhaWxlZC4gUnVuIHRoZSBpbnN0YWxsZXIgYWdhaW4uJykKICAgIHdpdGggdGVtcGZpbGUuVGVtcG9yYXJ5RGlyZWN0b3J5KHByZWZpeD0ndGVybWluYWwtZ2FtZXMtdXBkYXRlLScpIGFzIHN0YWdlOgogICAgICAgIHdpdGggemlwZmlsZS5aaXBGaWxlKGlvLkJ5dGVzSU8oYmxvYikpIGFzIGFyY2hpdmU6CiAgICAgICAgICAgIGlmIHN1bShtLmZpbGVfc2l6ZSBmb3IgbSBpbiBhcmNoaXZlLmluZm9saXN0KCkpPjY0KjEwMjQqMTAyNDpyYWlzZSBWYWx1ZUVycm9yKCdBcmNoaXZlIGlzIHRvbyBsYXJnZS4nKQogICAgICAgICAgICBmb3IgaXRlbSBpbiBhcmNoaXZlLmluZm9saXN0KCk6CiAgICAgICAgICAgICAgICBwYXRoPVB1cmVQb3NpeFBhdGgoaXRlbS5maWxlbmFtZSkKICAgICAgICAgICAgICAgIGlmIHBhdGguaXNfYWJzb2x1dGUoKSBvciAnLi4nIGluIHBhdGgucGFydHMgb3IgJ1xcJyBpbiBpdGVtLmZpbGVuYW1lIG9yIChpdGVtLmV4dGVybmFsX2F0dHI+PjE2KSYwbzE3MDAwMD09MG8xMjAwMDA6CiAgICAgICAgICAgICAgICAgICAgcmFpc2UgVmFsdWVFcnJvcignSW52YWxpZCBhcmNoaXZlIHBhdGguJykKICAgICAgICAgICAgYXJjaGl2ZS5leHRyYWN0YWxsKHN0YWdlKQogICAgICAgIHNvdXJjZT1QYXRoKHN0YWdlKS8nVGVybWluYWwgR2FtZXMnLydEZXBlbmRlbmNpZXMnCiAgICAgICAgaWYgKHNvdXJjZS8ncGFja2FnZS1pZC50eHQnKS5yZWFkX3RleHQoKS5zdHJpcCgpIT0ndGVybWluYWwtZ2FtZXMtcGFja2FnZS12MSc6cmFpc2UgVmFsdWVFcnJvcignSW52YWxpZCBnYW1lIHBhY2thZ2UuJykKICAgICAgICBpZiBzeXMucGxhdGZvcm09PSdkYXJ3aW4nIGFuZCBkZXN0aW5hdGlvbj09UGF0aC5ob21lKCkvJ0dhbWVzJy8nVGVybWluYWwgR2FtZXMnOgogICAgICAgICAgICBpbXBvcnQgaW1wb3J0bGliLnV0aWwKICAgICAgICAgICAgc3lzLnBhdGguaW5zZXJ0KDAsc3RyKHNvdXJjZSkpCiAgICAgICAgICAgIG1pZ3JhdGlvbl9wYXRoPXNvdXJjZS8nYXBwL3BsYXRmb3JtL2luc3RhbGxfbWlncmF0aW9uLnB5JwogICAgICAgICAgICBpZiBub3QgbWlncmF0aW9uX3BhdGguaXNfZmlsZSgpOm1pZ3JhdGlvbl9wYXRoPXNvdXJjZS8naW5zdGFsbF9taWdyYXRpb24ucHknCiAgICAgICAgICAgIHNwZWM9aW1wb3J0bGliLnV0aWwuc3BlY19mcm9tX2ZpbGVfbG9jYXRpb24oJ3RnX2luc3RhbGxfbWlncmF0aW9uJyxtaWdyYXRpb25fcGF0aCkKICAgICAgICAgICAgbWlncmF0aW9uPWltcG9ydGxpYi51dGlsLm1vZHVsZV9mcm9tX3NwZWMoc3BlYyk7c3BlYy5sb2FkZXIuZXhlY19tb2R1bGUobWlncmF0aW9uKQogICAgICAgICAgICBtaWdyYXRpb24ubWlncmF0ZSgpCiAgICAgICAgaWYgZGVzdGluYXRpb24uZXhpc3RzKCkgYW5kIG5vdCAoKGRlc3RpbmF0aW9uLydwYWNrYWdlLWlkLnR4dCcpLmlzX2ZpbGUoKSBvciAoKGRlc3RpbmF0aW9uLyd1aS5weScpLmlzX2ZpbGUoKSBhbmQgKGRlc3RpbmF0aW9uLydzZXJ2ZXItdXJsLnR4dCcpLmlzX2ZpbGUoKSkpOgogICAgICAgICAgICByYWlzZSBWYWx1ZUVycm9yKCdJbnN0YWxsIGxvY2F0aW9uIGNvbnRhaW5zIHVucmVsYXRlZCBmaWxlcy4nKQogICAgICAgIGRlc3RpbmF0aW9uLm1rZGlyKHBhcmVudHM9VHJ1ZSxleGlzdF9vaz1UcnVlKQogICAgICAgIG1hcmtlcj1kZXN0aW5hdGlvbi8ncGFja2FnZS1pZC50eHQnCiAgICAgICAgaWYgbWFya2VyLmV4aXN0cygpIGFuZCBtYXJrZXIucmVhZF90ZXh0KCkuc3RyaXAoKSE9J3Rlcm1pbmFsLWdhbWVzLXBhY2thZ2UtdjEnOnJhaXNlIFZhbHVlRXJyb3IoJ0ludmFsaWQgZXhpc3RpbmcgaW5zdGFsbGF0aW9uLicpCiAgICAgICAgbWFya2VyLndyaXRlX3RleHQoJ3Rlcm1pbmFsLWdhbWVzLXBhY2thZ2UtdjEnKQogICAgICAgIHN5cy5wYXRoLmluc2VydCgwLHN0cihzb3VyY2UpKQogICAgICAgIHRyeToKICAgICAgICAgICAgaWYgKHNvdXJjZS8nYXBwL3BsYXRmb3JtL3VwZGF0ZXIucHknKS5pc19maWxlKCk6CiAgICAgICAgICAgICAgICBmcm9tIGFwcC5wbGF0Zm9ybSBpbXBvcnQgdXBkYXRlcgogICAgICAgICAgICBlbHNlOgogICAgICAgICAgICAgICAgaW1wb3J0IHVwZGF0ZXIgICMgU3VwcG9ydCBvbGRlciwgZmxhdC1sYXlvdXQgcmVsZWFzZXMuCiAgICAgICAgICAgIHByaW50KCdJbnN0YWxsaW5nICcrcGFja2V0Wyd2ZXJzaW9uJ10rJy4uLicsZmx1c2g9VHJ1ZSkKICAgICAgICAgICAgdXBkYXRlci5pbnN0YWxsKGJsb2IsZGVzdGluYXRpb24pCiAgICAgICAgICAgIGVkaXRpb249ZGVzdGluYXRpb24vJ3N0YWJsZS1pbnN0YWxsLnR4dCcKICAgICAgICAgICAgZWRpdGlvbi51bmxpbmsobWlzc2luZ19vaz1UcnVlKQogICAgICAgICAgICBpZiBzeXMucGxhdGZvcm09PSdkYXJ3aW4nIGFuZCBkZXN0aW5hdGlvbj09UGF0aC5ob21lKCkvJ0dhbWVzJy8nVGVybWluYWwgR2FtZXMnOgogICAgICAgICAgICAgICAgbWlncmF0aW9uLnJlcGFpcl9zaG9ydGN1dCgpCiAgICAgICAgICAgICAgICBwcmludCgnU2hvcnRjdXQgdXBkYXRlZC4gT3BlbiBhIG5ldyBUZXJtaW5hbCB0YWIsIG9yIHJ1bjogc291cmNlIH4vLnpzaHJjJyxmbHVzaD1UcnVlKQogICAgICAgIGZpbmFsbHk6c3lzLnBhdGgucG9wKDApCiAgICByZXR1cm4gZGVzdGluYXRpb24vJ3Rlcm1pbmFsX2dhbWVzLnB5JwoKZGVmIGxpbnV4X3Nob3J0Y3V0cyhzY3JpcHQpOgogICAgaW1wb3J0IHNobGV4CiAgICBiaW5kaXI9UGF0aC5ob21lKCkvJy5sb2NhbC9iaW4nO2JpbmRpci5ta2RpcihwYXJlbnRzPVRydWUsZXhpc3Rfb2s9VHJ1ZSkKICAgIGxhdW5jaGVyPWJpbmRpci8ndGVybWluYWwtZ2FtZXMnCiAgICBsYXVuY2hlci53cml0ZV90ZXh0KCcjIS9iaW4vc2hcbmV4ZWMgJytzaGxleC5xdW90ZShzeXMuZXhlY3V0YWJsZSkrJyAnK3NobGV4LnF1b3RlKHN0cihzY3JpcHQpKSsnICIkQCJcbicpCiAgICBsYXVuY2hlci5jaG1vZCgwbzc1NSkKICAgIGFwcGxpY2F0aW9ucz1QYXRoLmhvbWUoKS8nLmxvY2FsL3NoYXJlL2FwcGxpY2F0aW9ucyc7YXBwbGljYXRpb25zLm1rZGlyKHBhcmVudHM9VHJ1ZSxleGlzdF9vaz1UcnVlKQogICAgZGVmIGRlc2t0b3BfYXJnKHZhbHVlKToKICAgICAgICByZXR1cm4gJyInK3N0cih2YWx1ZSkucmVwbGFjZSgnXFwnLCdcXFxcJykucmVwbGFjZSgnIicsJ1xcIicpLnJlcGxhY2UoJ2AnLCdcXGAnKS5yZXBsYWNlKCckJywnXFwkJykucmVwbGFjZSgnJScsJyUlJykrJyInCiAgICAoYXBwbGljYXRpb25zLyd0ZXJtaW5hbC1nYW1lcy5kZXNrdG9wJykud3JpdGVfdGV4dCgnW0Rlc2t0b3AgRW50cnldXG5UeXBlPUFwcGxpY2F0aW9uXG5OYW1lPVRlcm1pbmFsIEdhbWVzXG5Db21tZW50PVRlcm1pbmFsIGFyY2FkZSBnYW1lc1xuVGVybWluYWw9dHJ1ZVxuQ2F0ZWdvcmllcz1HYW1lO1xuSWNvbj11dGlsaXRpZXMtdGVybWluYWxcbkV4ZWM9JytkZXNrdG9wX2FyZyhzeXMuZXhlY3V0YWJsZSkrJyAnK2Rlc2t0b3BfYXJnKHNjcmlwdCkrJ1xuJykKCgpkZWYgbWFpbigpOgogICAgaWYgb3MubmFtZT09J250JzpkZXN0aW5hdGlvbj1QYXRoKG9zLmVudmlyb25bJ0xPQ0FMQVBQREFUQSddKS8nVGVybWluYWwgR2FtZXMnLydEZXBlbmRlbmNpZXMnCiAgICBlbGlmIHN5cy5wbGF0Zm9ybS5zdGFydHN3aXRoKCdsaW51eCcpOmRlc3RpbmF0aW9uPVBhdGguaG9tZSgpLycubG9jYWwvc2hhcmUvdGVybWluYWwtZ2FtZXMvRGVwZW5kZW5jaWVzJwogICAgZWxzZTpkZXN0aW5hdGlvbj1QYXRoLmhvbWUoKS8nR2FtZXMnLydUZXJtaW5hbCBHYW1lcycKICAgIHNjcmlwdD1pbnN0YWxsX2xhdGVzdChkZXN0aW5hdGlvbikKICAgIGlmIHN5cy5wbGF0Zm9ybS5zdGFydHN3aXRoKCdsaW51eCcpOmxpbnV4X3Nob3J0Y3V0cyhzY3JpcHQpCiAgICBpZiBvcy5uYW1lPT0nbnQnOgogICAgICAgIGVudj1kaWN0KG9zLmVudmlyb24sVEVSTUlOQUxfR0FNRVNfUkVTVEFSVF9MT09QPScxJykKICAgICAgICB3aGlsZSBUcnVlOgogICAgICAgICAgICBjb2RlPXN1YnByb2Nlc3MuY2FsbChbc3lzLmV4ZWN1dGFibGUsc3RyKHNjcmlwdCldLGN3ZD1kZXN0aW5hdGlvbixlbnY9ZW52KQogICAgICAgICAgICBpZiBjb2RlIT03NTpyZXR1cm4gY29kZQogICAgb3MuZXhlY3Yoc3lzLmV4ZWN1dGFibGUsW3N5cy5leGVjdXRhYmxlLHN0cihzY3JpcHQpXSkKCmlmIF9fbmFtZV9fPT0nX19tYWluX18nOgogICAgdHJ5OnJhaXNlIFN5c3RlbUV4aXQobWFpbigpKQogICAgZXhjZXB0IEV4Y2VwdGlvbiBhcyBlcnJvcjoKICAgICAgICBwcmludCgnSW5zdGFsbGF0aW9uIGZhaWxlZDogJytzdHIoZXJyb3IpLGZpbGU9c3lzLnN0ZGVycikKICAgICAgICByYWlzZSBTeXN0ZW1FeGl0KDEpCg=='),'<Terminal Games installer>','exec'))"
+    exit $LASTEXITCODE
+} catch {
+    Write-Host ('Installation failed: ' + $_.Exception.Message) -ForegroundColor Red
+    exit 1
+}
