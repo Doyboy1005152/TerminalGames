@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="152" viewBox="0 0 960 152" role="img" aria-labelledby="title desc">
+<title id="title">CHOOSE YOUR NEXT CHALLENGE</title><desc id="desc">SOLO RUNS / PARTY RIVALRIES / PERSONAL BESTS</desc>
+<defs><linearGradient id="accent"><stop stop-color="#ff9438"/><stop offset="1" stop-color="#ff4d72"/></linearGradient><pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#283046" stroke-width="1"/></pattern></defs>
+<rect x="1" y="1" width="958" height="150" rx="14" fill="#101521" stroke="#35405a"/>
+<rect x="2" y="2" width="956" height="148" rx="13" fill="url(#grid)" opacity=".45"/>
+<rect x="24" y="30" width="5" height="90" rx="2" fill="url(#accent)"/>
+<g fill="#ff9438"><rect x="47" y="29" width="7" height="7"/><rect x="59" y="29" width="7" height="7" opacity=".65"/><rect x="71" y="29" width="7" height="7" opacity=".35"/></g>
+<text x="47" y="76" fill="url(#accent)" font-family="monospace" font-size="30" font-weight="bold" letter-spacing="1">CHOOSE YOUR NEXT CHALLENGE</text>
+<text x="48" y="109" fill="#c3cce1" font-family="monospace" font-size="14" letter-spacing="1">SOLO RUNS / PARTY RIVALRIES / PERSONAL BESTS</text>
+<g transform="translate(828 42)" fill="#ff9438" opacity=".85">
+<path d="M16 0h8v8h-8zm48 0h8v8h-8zM24 8h40v8H24zM16 16h56v8H16zM8 24h72v24h-8V32h-8v16H24V32h-8v16H8zM24 48h16v8H24zm24 0h16v8H48z"/>
+<rect x="24" y="24" width="8" height="8" fill="#101521"/><rect x="56" y="24" width="8" height="8" fill="#101521"/>
+</g></svg>

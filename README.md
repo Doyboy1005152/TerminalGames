@@ -76,6 +76,8 @@ https://github.com/user-attachments/assets/28d06e87-ea38-48f6-89e5-eed05829fcd4
 
 ## What's inside?
 
+![CHOOSE YOUR NEXT CHALLENGE](./Assets/section-games.svg)
+
 **A growing collection of games and party modes.** Pick a solo challenge or bring friends along.
 
 <!-- PUBLIC-GAMES:START -->
@@ -101,16 +103,20 @@ https://github.com/user-attachments/assets/28d06e87-ea38-48f6-89e5-eed05829fcd4
 
 ## Your first round
 
-**1 · Find your game**  
+![PLAYER ONE: READY](./Assets/section-first-round.svg)
+
+**🟦 01 · Find your game**  
 Open **Games** from the main menu. Every game shows its controls.
 
-**2 · Set your style**  
+**🟪 02 · Set your style**  
 Visit **Settings** for controls and colors, then explore **Collection / Cosmetics** for your unlocks.
 
-**3 · Make it a rivalry**  
+**🟧 03 · Make it a rivalry**  
 Sign in, invite friends to a party, and see who takes the next win.
 
 ## Stay up to date
+
+![KEEP YOUR ARCADE CURRENT](./Assets/section-updates.svg)
 
 Use the in-game update controls to get the latest public build. The installers above always fetch the current public release.
 
@@ -122,6 +128,8 @@ Development builds are separate from public releases. Authorized developers can 
 </details>
 
 ## Need a hand?
+
+![NEED A CONTINUE?](./Assets/section-help.svg)
 
 <details>
 <summary><strong>The display looks cramped</strong></summary>
@@ -157,7 +165,9 @@ Check your internet connection and try again later. Visit the Discord community 
 
 **Ready for one more round?**
 
-[Download Terminal Games](https://github.com/Doyboy1005152/TerminalGames/releases/tag/Release) · [Join the Discord](https://discord.gg/nnVcGzDpCY)
+[![Download Terminal Games](./Assets/download-button.svg)](https://github.com/Doyboy1005152/TerminalGames/releases/tag/Release)
+
+[![Join Discord](./Assets/discord-button.svg)](https://discord.gg/nnVcGzDpCY)
 
 <sub>Download. Install. Play.</sub>
 
