@@ -7,7 +7,8 @@
 <g fill="#ffd66b"><rect x="47" y="29" width="7" height="7"/><rect x="59" y="29" width="7" height="7" opacity=".65"/><rect x="71" y="29" width="7" height="7" opacity=".35"/></g>
 <text x="47" y="76" fill="url(#accent)" font-family="monospace" font-size="30" font-weight="bold" letter-spacing="1">NEED A HAND?</text>
 <text x="48" y="109" fill="#c3cce1" font-family="monospace" font-size="14" letter-spacing="1">SETUP HELP / CONNECTIONS / BUG REPORTS</text>
-<g transform="translate(828 42)" fill="#ffd66b" opacity=".85">
-<path d="M16 0h8v8h-8zm48 0h8v8h-8zM24 8h40v8H24zM16 16h56v8H16zM8 24h72v24h-8V32h-8v16H24V32h-8v16H8zM24 48h16v8H24zm24 0h16v8H48z"/>
-<rect x="24" y="24" width="8" height="8" fill="#101521"/><rect x="56" y="24" width="8" height="8" fill="#101521"/>
+<g transform="translate(828 42)">
+<path d="M24 0h32v8h16v8h8v48H64V52H52v12H40V52H28v12H12V16h8V8h4Z" fill="#ffd66b"/>
+<path d="M24 16h16v24H24zm28 0h16v24H52z" fill="#fff8e5"/>
+<rect x="32" y="24" width="8" height="12" fill="#101521"/><rect x="60" y="24" width="8" height="12" fill="#101521"/>
 </g></svg>

@@ -7,7 +7,8 @@
 <g fill="#43e3df"><rect x="47" y="29" width="7" height="7"/><rect x="59" y="29" width="7" height="7" opacity=".65"/><rect x="71" y="29" width="7" height="7" opacity=".35"/></g>
 <text x="47" y="76" fill="url(#accent)" font-family="monospace" font-size="30" font-weight="bold" letter-spacing="1">PLAYER ONE: READY</text>
 <text x="48" y="109" fill="#c3cce1" font-family="monospace" font-size="14" letter-spacing="1">PICK A GAME / FIND YOUR STYLE / BRING FRIENDS</text>
-<g transform="translate(828 42)" fill="#43e3df" opacity=".85">
-<path d="M16 0h8v8h-8zm48 0h8v8h-8zM24 8h40v8H24zM16 16h56v8H16zM8 24h72v24h-8V32h-8v16H24V32h-8v16H8zM24 48h16v8H24zm24 0h16v8H48z"/>
-<rect x="24" y="24" width="8" height="8" fill="#101521"/><rect x="56" y="24" width="8" height="8" fill="#101521"/>
+<g transform="translate(828 42)">
+<path d="M42 30L69 10A34 34 0 1 0 69 50Z" fill="#43e3df"/>
+<rect x="42" y="9" width="6" height="6" fill="#101521"/>
+<rect x="73" y="27" width="6" height="6" fill="#c3cce1"/><rect x="87" y="27" width="6" height="6" fill="#c3cce1"/>
 </g></svg>

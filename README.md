@@ -20,7 +20,7 @@ Classic-style games, multiplayer parties, and a little more hiding behind the me
 
 ---
 
-### 🎮 Play. Compete. Make it yours.
+### Play. Compete. Make it yours.
 
 **Pick up & play** — Arcade classics, quick challenges, and personal bests worth chasing.
 
@@ -76,7 +76,7 @@ https://github.com/user-attachments/assets/28d06e87-ea38-48f6-89e5-eed05829fcd4
 
 ## What's inside?
 
-![CHOOSE YOUR NEXT CHALLENGE](./Assets/section-games.svg)
+![CHOOSE YOUR NEXT CHALLENGE](./Assets/section-games-invader.svg)
 
 **A growing collection of games and party modes.** Pick a solo challenge or bring friends along.
 
@@ -103,20 +103,20 @@ https://github.com/user-attachments/assets/28d06e87-ea38-48f6-89e5-eed05829fcd4
 
 ## Your first round
 
-![PLAYER ONE: READY](./Assets/section-first-round.svg)
+![PLAYER ONE: READY](./Assets/section-first-round-pacman.svg)
 
-**🟦 01 · Find your game**  
+**01 · Find your game**  
 Open **Games** from the main menu. Every game shows its controls.
 
-**🟪 02 · Set your style**  
+**02 · Set your style**  
 Visit **Settings** for controls and colors, then explore **Collection / Cosmetics** for your unlocks.
 
-**🟧 03 · Make it a rivalry**  
+**03 · Make it a rivalry**  
 Sign in, invite friends to a party, and see who wins the next round.
 
 ## Stay up to date
 
-![KEEP YOUR ARCADE CURRENT](./Assets/section-updates.svg)
+![KEEP YOUR ARCADE CURRENT](./Assets/section-updates-bird.svg)
 
 Use the in-game update controls to get the latest public build. The installers above always fetch the current public release.
 
@@ -129,7 +129,7 @@ Development builds are separate from public releases. Authorized developers can 
 
 ## Need a hand?
 
-![NEED A HAND?](./Assets/section-help-hand.svg)
+![NEED A HAND?](./Assets/section-help-ghost.svg)
 
 <details>
 <summary><strong>The display looks cramped</strong></summary>
