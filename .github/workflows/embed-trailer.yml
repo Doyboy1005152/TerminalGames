@@ -1,0 +1,65 @@
+name: Embed README trailer
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/embed-trailer.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  issues: write
+concurrency:
+  group: readme-trailer
+  cancel-in-progress: false
+jobs:
+  embed:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Fetch README and trailer
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          git fetch --depth=1 origin main
+          git checkout -b main FETCH_HEAD
+      - name: Install attachment-capable GitHub CLI
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/trailer-cli"
+          cd "$RUNNER_TEMP/trailer-cli"
+          gh release download v2.105.0 --repo cli/cli --pattern gh_2.105.0_linux_amd64.tar.gz --pattern gh_2.105.0_checksums.txt
+          grep ' gh_2.105.0_linux_amd64.tar.gz$' gh_2.105.0_checksums.txt | sha256sum -c -
+          tar -xzf gh_2.105.0_linux_amd64.tar.gz
+          echo "$RUNNER_TEMP/trailer-cli/gh_2.105.0_linux_amd64/bin" >> "$GITHUB_PATH"
+      - name: Upload inline video and update README
+        run: |
+          set -euo pipefail
+          if grep -q 'https://github.com/user-attachments/assets/' README.md; then
+            echo 'README already has an inline attachment.'
+            exit 0
+          fi
+          printf '%s\n' 'Hosts the video attachment used by the README trailer. No action needed.' > "$RUNNER_TEMP/trailer-body.md"
+          issue=$(gh issue create --title 'README trailer attachment' --body-file "$RUNNER_TEMP/trailer-body.md" --attach Assets/terminal-games-trailer.mp4)
+          gh issue view "$issue" --json body --jq .body > "$RUNNER_TEMP/trailer-upload.md"
+          gh issue close "$issue"
+          python3 - <<'PY'
+          import os,re
+          from pathlib import Path
+          body=(Path(os.environ['RUNNER_TEMP'])/'trailer-upload.md').read_text()
+          match=re.search(r'https://github\.com/user-attachments/assets/[A-Za-z0-9-]+',body)
+          if not match:raise RuntimeError('No uploaded video URL returned')
+          p=Path('README.md');text=p.read_text()
+          before,rest=text.split('## Game trailer\n',1)
+          _,after=rest.split('\n## Installation',1)
+          text=before+'## Game trailer\n\n'+match[0]+'\n\n[Download the trailer](./Assets/terminal-games-trailer.mp4?raw=true).\n\n## Installation'+after
+          p.write_text(text)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add README.md
+          git commit -m 'Embed GitHub-hosted trailer player in README'
+          git -c http.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)" push origin HEAD:main
