@@ -2,14 +2,6 @@
 
 # Terminal Games
 
-
-
-
-https://github.com/user-attachments/assets/15eed024-e155-48e5-b9ef-44a38be8deee
-
-
-
-
 **An arcade in your terminal.** Play classic-style games, challenge friends, join parties, and unlock new ways to customize your game.
 
 ## Download
@@ -28,9 +20,9 @@ Find teammates, chat with other players, and follow updates.
 
 ## Game trailer
 
-[![Watch the Terminal Games trailer](./Assets/trailer-preview.jpg)](https://github.com/Doyboy1005152/TerminalGames/raw/refs/heads/main/Assets/terminal-games-trailer.mp4)
+https://github.com/user-attachments/assets/15eed024-e155-48e5-b9ef-44a38be8deee
 
-[Watch or download the trailer](https://github.com/Doyboy1005152/TerminalGames/raw/refs/heads/main/Assets/terminal-games-trailer.mp4).
+[Download the trailer](./Assets/terminal-games-trailer.mp4?raw=true).
 
 ## Installation
 
