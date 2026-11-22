@@ -34,7 +34,7 @@ Classic-style games, multiplayer parties, and a little more hiding behind the me
 
 ### [↓ Windows](./install-windows.bat?raw=true)　·　[↓ macOS](./install-mac.command?raw=true)　·　[↓ Linux](./install-linux.sh?raw=true)
 
-Each installer fetches the **latest public version**. No source-code download or ZIP extraction needed.
+Each installer fetches the **latest public version**. No source-code download or ZIP extraction is needed.
 
 <details>
 <summary><strong>Windows setup</strong></summary>
@@ -56,7 +56,7 @@ Each installer fetches the **latest public version**. No source-code download or
 <summary><strong>Linux setup</strong></summary>
 
 1. Download **install-linux.sh** above.
-2. Open a terminal in your download folder and run:
+2. Open a terminal in your downloads folder and run:
 
 ```sh
 sh "install-linux.sh"
@@ -83,15 +83,15 @@ https://github.com/user-attachments/assets/28d06e87-ea38-48f6-89e5-eed05829fcd4
 <!-- PUBLIC-GAMES:START -->
 
 - **Skribbl** — Draw and guess with 2–4 party members.
-- **Capture the Flag** — Only available in party.
+- **Capture the Flag** — Available only in party mode.
 - **Pong** — Paddle battles against the AI.
 - **Flappy Bird** — Dodge pipes and chase your best score.
 - **Maze Race** — Find the exit and beat your best time.
-- **Tetris** — Stack, clear lines and race the clock.
+- **Tetris** — Stack, clear lines, and race the clock.
 - **Space Invaders** — 100 levels of alien fleets and bosses.
 - **Crossy Road** — Hop past traffic and ride river logs.
 - **Levels** — Jump up platforms and climb to new heights.
-- **Pac-Man** — Eat pellets, dodge ghosts and chase high scores.
+- **Pac-Man** — Eat pellets, dodge ghosts, and chase high scores.
 - **2v2 Pong** — Team paddle battles with four players.
 - **Maze Relay** — Team maze relay for four players.
 - **Tetris Race** — Race friends while stacking and clearing lines.
@@ -112,7 +112,7 @@ Open **Games** from the main menu. Every game shows its controls.
 Visit **Settings** for controls and colors, then explore **Collection / Cosmetics** for your unlocks.
 
 **🟧 03 · Make it a rivalry**  
-Sign in, invite friends to a party, and see who takes the next win.
+Sign in, invite friends to a party, and see who wins the next round.
 
 ## Stay up to date
 
@@ -129,7 +129,7 @@ Development builds are separate from public releases. Authorized developers can 
 
 ## Need a hand?
 
-![NEED A CONTINUE?](./Assets/section-help.svg)
+![NEED A HAND?](./Assets/section-help.svg)
 
 <details>
 <summary><strong>The display looks cramped</strong></summary>
