@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="152" viewBox="0 0 960 152" role="img" aria-labelledby="title desc">
+<title id="title">GOT QUESTIONS? HOP IN.</title><desc id="desc">Quick answers, less guessing, more play. A smiling mint-green pixel frog sits on the right.</desc>
+<defs><linearGradient id="accent"><stop stop-color="#7dedad"/><stop offset="1" stop-color="#42d4dc"/></linearGradient><pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#283046" stroke-width="1"/></pattern></defs>
+<rect x="1" y="1" width="958" height="150" rx="14" fill="#101521" stroke="#35405a"/>
+<rect x="2" y="2" width="956" height="148" rx="13" fill="url(#grid)" opacity=".45"/>
+<rect x="24" y="30" width="5" height="90" rx="2" fill="url(#accent)"/>
+<g fill="#7dedad"><rect x="47" y="29" width="7" height="7"/><rect x="59" y="29" width="7" height="7" opacity=".65"/><rect x="71" y="29" width="7" height="7" opacity=".35"/></g>
+<text x="47" y="76" fill="url(#accent)" font-family="monospace" font-size="30" font-weight="bold" letter-spacing="1">GOT QUESTIONS? HOP IN.</text>
+<text x="48" y="109" fill="#c3cce1" font-family="monospace" font-size="14" letter-spacing="1">QUICK ANSWERS / LESS GUESSING / MORE PLAY</text>
+<g transform="translate(824 38)" shape-rendering="crispEdges">
+<!-- A new pixel frog character, distinct from the other section mascots. -->
+<path d="M12 8h24v24H12zm44 0h24v24H56z" fill="#7dedad"/>
+<path d="M12 28h68v28H68v8H24v-8H12Z" fill="#7dedad"/>
+<path d="M4 44h16v20H4zm68 0h16v20H72zM0 64h32v8H0zm60 0h32v8H60z" fill="#42d4dc"/>
+<path d="M20 12h12v16H20zm40 0h12v16H60z" fill="#f1fff5"/>
+<path d="M24 16h8v8h-8zm36 0h8v8h-8zM32 40h8v8h16v-8h8v16H32Z" fill="#101521"/>
+<path d="M16 36h12v4H16zm48 0h12v4H64z" fill="#42d4dc"/>
+</g></svg>

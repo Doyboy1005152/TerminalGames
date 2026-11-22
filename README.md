@@ -14,7 +14,7 @@ Classic-style games, multiplayer parties, and a little more hiding behind the me
 
 **[Windows](./install-windows.bat?raw=true) · [macOS](./install-mac.command?raw=true) · [Linux](./install-linux.sh?raw=true)**
 
-[Get started](#get-started) · [Watch the trailer](#game-trailer) · [What's inside?](#whats-inside) · [Get help](#need-a-hand)
+[Get started](#get-started) · [Watch the trailer](#game-trailer) · [What's inside?](#whats-inside) · [FAQ](#faq) · [Get help](#need-a-hand)
 
 </div>
 
@@ -124,6 +124,54 @@ Use the in-game update controls to get the latest public build. The installers a
 <summary>For developers</summary>
 
 Development builds are separate from public releases. Authorized developers can manage them through **Developer Controls**.
+
+</details>
+
+## FAQ
+
+![GOT QUESTIONS? HOP IN.](./Assets/section-faq-frog.svg)
+
+**Quick answers before your next round.**
+
+<details>
+<summary><strong>Which operating systems can I use?</strong></summary>
+
+Terminal Games has installers for **Windows, macOS, and Linux**. Choose the one for your computer under [Get started](#get-started), then follow its Python setup prompts if needed.
+
+</details>
+
+<details>
+<summary><strong>Do I need to download the source code or extract a ZIP?</strong></summary>
+
+No. Download just your platform's installer. It fetches the latest public game, installs it, and launches it for you.
+
+</details>
+
+<details>
+<summary><strong>Can I play by myself or with friends?</strong></summary>
+
+Both. Pick a solo game from **Games**, or sign in and invite friends to a party. Player counts depend on the game; [What's inside?](#whats-inside) lists the available games and party modes.
+
+</details>
+
+<details>
+<summary><strong>Why is the game download so small? Where is the music?</strong></summary>
+
+Bundled music downloads when it is needed instead of being included in the game package. Turning music off removes those downloaded tracks; turning it back on downloads them again as needed. Your imported music is kept separately and is not deleted.
+
+</details>
+
+<details>
+<summary><strong>Do I need to download a new installer for every update?</strong></summary>
+
+No. Use the in-game update controls. The installers also fetch the latest public version whenever you run them, so you do not need a separate installer for each game version.
+
+</details>
+
+<details>
+<summary><strong>What's the difference between public and development builds?</strong></summary>
+
+The public build is the normal release downloaded by these installers. Development builds are separate previews for authorized developers; changes reach the public build when they are released to main.
 
 </details>
 
