@@ -1,0 +1,68 @@
+name: Update public installer release
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'install-windows.bat'
+      - 'install-mac.command'
+      - 'install-linux.sh'
+      - 'terminal-games-installers.zip'
+      - '.github/workflows/update-installers.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: public-installer-release
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Fetch the exact repository commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          git fetch --depth=1 origin "$GITHUB_SHA"
+          git checkout --detach FETCH_HEAD
+      - name: Validate installer bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash -n install-linux.sh
+          bash -n install-mac.command
+          python3 - <<'PY'
+          from pathlib import Path
+          import zipfile
+          names = {'install-windows.bat', 'install-mac.command', 'install-linux.sh'}
+          with zipfile.ZipFile('terminal-games-installers.zip') as archive:
+              assert set(archive.namelist()) == names, 'Unexpected bundle contents'
+              for name in names:
+                  assert archive.read(name) == Path(name).read_bytes(), name
+          PY
+      - name: Update existing public release attachments
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Keep the existing release title, notes, tag and public game version.
+          gh release view Release >/dev/null
+          mkdir -p release-assets
+          cp install-windows.bat install-mac.command install-linux.sh terminal-games-installers.zip release-assets/
+          # Refresh old direct-download names too, so existing links keep working.
+          cp install-windows.bat release-assets/INSTALL.WINDOWS.bat
+          cp install-mac.command release-assets/INSTALL.MAC.command
+          cp install-linux.sh release-assets/INSTALL.LINUX.sh
+          gh release upload Release release-assets/* --clobber
+          mkdir -p verify-assets
+          for file in release-assets/*; do
+            name="${file##*/}"
+            gh release download Release --pattern "$name" --dir verify-assets
+            cmp "$file" "verify-assets/$name"
+          done
+          echo 'All seven installer attachments uploaded and verified.' >> "$GITHUB_STEP_SUMMARY"
