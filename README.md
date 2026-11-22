@@ -1,55 +1,111 @@
-![Terminal Games original banner](./Assets/banner-original.png)
+<div align="center">
 
-# Terminal Games
+![Terminal Games](./Assets/banner-original.png)
 
-**An arcade in your terminal.** Play classic-style games, challenge friends, join parties, and unlock new ways to customize your game.
+# Your terminal. Your arcade.
 
-## Download
+**Quick games. Friendly rivalries. One more round.**
+
+Classic-style games, multiplayer parties, and a little more hiding behind the menus.
 
 [![Download Terminal Games](./Assets/download-button.svg)](https://github.com/Doyboy1005152/TerminalGames/releases/tag/Release)
 
-[**Windows**](./install-windows.bat?raw=true) · [**macOS**](./install-mac.command?raw=true) · [**Linux**](./install-linux.sh?raw=true)
+**[Windows](./install-windows.bat?raw=true) · [macOS](./install-mac.command?raw=true) · [Linux](./install-linux.sh?raw=true)**
 
-Download only the installer for your computer. Each installer downloads the latest public version of Terminal Games. No ZIP extraction is needed.
+[Get started](#get-started) · [Watch the trailer](#game-trailer) · [What's inside?](#whats-inside) · [Get help](#need-a-hand)
 
-## Discord
+</div>
 
-[![Join Discord](./Assets/discord-button.svg)](https://discord.gg/nnVcGzDpCY)
+---
 
-Find teammates, chat with other players, and follow updates.
+<table>
+<tr>
+<td width="33%" valign="top">
 
-## Game trailer
+### 🎮 Pick up & play
 
-https://github.com/user-attachments/assets/28d06e87-ea38-48f6-89e5-eed05829fcd4
+Dodge pipes, clear lines, chase ghosts, or jump into a paddle battle. Find your favorite and chase a new personal best.
 
-[Download the trailer](./Assets/terminal-games-trailer.mp4?raw=true).
+</td>
+<td width="33%" valign="top">
 
-## Installation
+### 🏆 Bring your rivals
 
-### Windows
+Join a party, race friends, and compete on leaderboards. Keep the conversation going with friends and chat.
 
-1. Download **`install-windows.bat`** using the Windows link above.
-2. Open it and follow the prompts to install and launch the game.
+</td>
+<td width="33%" valign="top">
 
-### macOS
+### ✨ Make it yours
 
-1. Download **`install-mac.command`** using the macOS link above.
-2. Open **`install-mac.command`**.
-3. Follow the prompts to install and launch the game.
+Unlock cosmetics, choose your colors, and customize your controls. Explore the arcade for hidden surprises.
 
-### Linux
+</td>
+</tr>
+</table>
 
-1. Download **`install-linux.sh`** using the Linux link above.
-2. Open a terminal in the folder containing the downloaded file.
-3. Run:
+## Get started
+
+**Choose your platform. Download one installer. Follow the prompts.**
+
+| Windows | macOS | Linux |
+| :---: | :---: | :---: |
+| [**Download for Windows**](./install-windows.bat?raw=true) | [**Download for macOS**](./install-mac.command?raw=true) | [**Download for Linux**](./install-linux.sh?raw=true) |
+| `install-windows.bat` | `install-mac.command` | `install-linux.sh` |
+
+Each installer fetches the **latest public version**. No source-code download or ZIP extraction needed.
+
+<details>
+<summary><strong>Windows setup</strong></summary>
+
+1. Download **install-windows.bat** above.
+2. Open it and follow the prompts to install and launch Terminal Games.
+
+</details>
+
+<details>
+<summary><strong>macOS setup</strong></summary>
+
+1. Download **install-mac.command** above.
+2. Open it and follow the prompts to install and launch Terminal Games.
+
+</details>
+
+<details>
+<summary><strong>Linux setup</strong></summary>
+
+1. Download **install-linux.sh** above.
+2. Open a terminal in your download folder and run:
 
 ```sh
 sh "install-linux.sh"
 ```
 
-**An internet connection is required to download the game.** Follow any Python setup instructions shown by the installer.
+3. Follow the installer prompts.
+
+</details>
+
+An internet connection is required for the download. Follow any Python setup instructions shown by your installer.
+
+## Discord
+
+**Find your next teammate. Or your next rival.**
+
+[![Join Discord](./Assets/discord-button.svg)](https://discord.gg/nnVcGzDpCY)
+
+Meet other players, organize a party, and follow Terminal Games updates.
+
+## Game trailer
+
+https://github.com/user-attachments/assets/28d06e87-ea38-48f6-89e5-eed05829fcd4
+
+[Download the trailer](./Assets/terminal-games-trailer.mp4?raw=true)
+
+---
 
 ## What's inside?
+
+**A growing collection of games and party modes.** Pick a solo challenge or bring friends along.
 
 <!-- PUBLIC-GAMES:START -->
 
@@ -70,25 +126,68 @@ sh "install-linux.sh"
 
 <!-- PUBLIC-GAMES:END -->
 
-Plus multiplayer parties, matchmaking, leaderboards, friends, chat, customizable themes, and hidden secrets to discover.
+<sub>This list stays in sync with each new public game release.</sub>
 
-## Make it yours
+## Your first round
 
-Earn cosmetic rewards, choose your theme, and customize your controls. Explore the menus—there may be more to find than you expect.
+**1 · Find your game**  
+Open **Games** from the main menu. Every game shows its controls.
 
-## Updates
+**2 · Set your style**  
+Visit **Settings** for controls and colors, then explore **Collection / Cosmetics** for your unlocks.
 
-Use the game's update controls to stay current. These installers download the **public release**; development builds are managed separately through Developer Controls for authorized developers.
+**3 · Make it a rivalry**  
+Sign in, invite friends to a party, and see who takes the next win.
 
-You don't need to download the project source to play.
+## Stay up to date
 
-## Need help?
+Use the in-game update controls to get the latest public build. The installers above always fetch the current public release.
 
-- **Display looks cramped?** Enlarge your terminal window.
-- **Can't connect?** Check your internet connection and try again later.
-- **Installer won't run?** Make sure you're opening the installer for your operating system.
-- **Found a bug?** Open an issue in this repository with your operating system, game version, and steps to reproduce it. Screenshots help—leave out passwords and private account information.
+<details>
+<summary>For developers</summary>
+
+Development builds are separate from public releases. Authorized developers can manage them through **Developer Controls**.
+
+</details>
+
+## Need a hand?
+
+<details>
+<summary><strong>The display looks cramped</strong></summary>
+
+Enlarge your terminal window. Use the text-size hint in the game to adjust your terminal font size.
+
+</details>
+
+<details>
+<summary><strong>The installer won't run</strong></summary>
+
+Check that you downloaded the installer for your operating system, then follow its setup prompts. The platform steps are under **Get started** above.
+
+</details>
+
+<details>
+<summary><strong>I can't connect</strong></summary>
+
+Check your internet connection and try again later. Visit the Discord community for help and updates.
+
+</details>
+
+<details>
+<summary><strong>I found a bug</strong></summary>
+
+[Open an issue](https://github.com/Doyboy1005152/TerminalGames/issues) with your operating system, game version, and steps to reproduce it. Screenshots help—leave out passwords and private account information.
+
+</details>
 
 ---
 
-**Download. Install. Play.**
+<div align="center">
+
+**Ready for one more round?**
+
+[Download Terminal Games](https://github.com/Doyboy1005152/TerminalGames/releases/tag/Release) · [Join the Discord](https://discord.gg/nnVcGzDpCY)
+
+<sub>Download. Install. Play.</sub>
+
+</div>
