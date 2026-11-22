@@ -155,6 +155,8 @@ Check your internet connection and try again later. Visit the Discord community 
 <details>
 <summary><strong>I found a bug</strong></summary>
 
+You can also submit an in-game bug report: select **Report a bug** from the main menu.
+
 [Open an issue](https://github.com/Doyboy1005152/TerminalGames/issues) with your operating system, game version, and steps to reproduce it. Screenshots help—leave out passwords and private account information.
 
 </details>
