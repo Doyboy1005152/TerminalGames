@@ -1,6 +1,6 @@
 <div align="center">
 
-![Terminal Games](./Assets/banner-original.png)
+![Terminal Games](./Assets/banner-rounded.png)
 
 # Your terminal. Your arcade.
 
