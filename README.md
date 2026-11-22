@@ -129,7 +129,7 @@ Development builds are separate from public releases. Authorized developers can 
 
 ## Need a hand?
 
-![NEED A HAND?](./Assets/section-help.svg)
+![NEED A HAND?](./Assets/section-help-hand.svg)
 
 <details>
 <summary><strong>The display looks cramped</strong></summary>
