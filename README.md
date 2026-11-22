@@ -10,6 +10,8 @@ Classic-style games, multiplayer parties, and a little more hiding behind the me
 
 [![Download Terminal Games](./Assets/download-button.svg)](https://github.com/Doyboy1005152/TerminalGames/releases/tag/Release)
 
+[![Join Discord](./Assets/discord-button.svg)](https://discord.gg/nnVcGzDpCY)
+
 **[Windows](./install-windows.bat?raw=true) · [macOS](./install-mac.command?raw=true) · [Linux](./install-linux.sh?raw=true)**
 
 [Get started](#get-started) · [Watch the trailer](#game-trailer) · [What's inside?](#whats-inside) · [Get help](#need-a-hand)
@@ -18,40 +20,19 @@ Classic-style games, multiplayer parties, and a little more hiding behind the me
 
 ---
 
-<table>
-<tr>
-<td width="33%" valign="top">
+### 🎮 Play. Compete. Make it yours.
 
-### 🎮 Pick up & play
+**Pick up & play** — Arcade classics, quick challenges, and personal bests worth chasing.
 
-Dodge pipes, clear lines, chase ghosts, or jump into a paddle battle. Find your favorite and chase a new personal best.
+**Bring your rivals** — Party up, race friends, and climb the leaderboards.
 
-</td>
-<td width="33%" valign="top">
-
-### 🏆 Bring your rivals
-
-Join a party, race friends, and compete on leaderboards. Keep the conversation going with friends and chat.
-
-</td>
-<td width="33%" valign="top">
-
-### ✨ Make it yours
-
-Unlock cosmetics, choose your colors, and customize your controls. Explore the arcade for hidden surprises.
-
-</td>
-</tr>
-</table>
+**Find your style** — Unlock cosmetics, change your colors, and discover hidden surprises.
 
 ## Get started
 
 **Choose your platform. Download one installer. Follow the prompts.**
 
-| Windows | macOS | Linux |
-| :---: | :---: | :---: |
-| [**Download for Windows**](./install-windows.bat?raw=true) | [**Download for macOS**](./install-mac.command?raw=true) | [**Download for Linux**](./install-linux.sh?raw=true) |
-| `install-windows.bat` | `install-mac.command` | `install-linux.sh` |
+### [↓ Windows](./install-windows.bat?raw=true)　·　[↓ macOS](./install-mac.command?raw=true)　·　[↓ Linux](./install-linux.sh?raw=true)
 
 Each installer fetches the **latest public version**. No source-code download or ZIP extraction needed.
 
@@ -86,14 +67,6 @@ sh "install-linux.sh"
 </details>
 
 An internet connection is required for the download. Follow any Python setup instructions shown by your installer.
-
-## Discord
-
-**Find your next teammate. Or your next rival.**
-
-[![Join Discord](./Assets/discord-button.svg)](https://discord.gg/nnVcGzDpCY)
-
-Meet other players, organize a party, and follow Terminal Games updates.
 
 ## Game trailer
 
