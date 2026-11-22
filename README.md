@@ -20,11 +20,7 @@ Find teammates, chat with other players, and follow updates.
 
 ## Game trailer
 
-
-
 https://github.com/user-attachments/assets/28d06e87-ea38-48f6-89e5-eed05829fcd4
-
-
 
 [Download the trailer](./Assets/terminal-games-trailer.mp4?raw=true).
 
