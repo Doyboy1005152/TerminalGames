@@ -1,4 +1,4 @@
-![Terminal Games original banner](./banner-original.png)
+![Terminal Games original banner](./Assets/banner-original.png)
 
 # Terminal Games
 
@@ -6,7 +6,7 @@
 
 ## Download
 
-[![Download Terminal Games](./download-button.svg)](./terminal-games-installers.zip?raw=true)
+[![Download Terminal Games](./Assets/download-button.svg)](./terminal-games-installers.zip?raw=true)
 
 **Windows · macOS · Linux**
 
@@ -14,15 +14,15 @@ One ZIP contains installers for all three platforms. Download it, extract it, an
 
 ## Discord
 
-[![Join Discord](./discord-button.svg)](https://discord.gg/nnVcGzDpCY)
+[![Join Discord](./Assets/discord-button.svg)](https://discord.gg/nnVcGzDpCY)
 
 Find teammates, chat with other players, and follow updates.
 
 ## Game trailer
 
-[![Watch the Terminal Games trailer](./media/trailer-preview.jpg)](https://github.com/Doyboy1005152/TerminalGames/raw/refs/heads/main/media/terminal-games-trailer.mp4)
+[![Watch the Terminal Games trailer](./Assets/trailer-preview.jpg)](https://github.com/Doyboy1005152/TerminalGames/raw/refs/heads/main/Assets/terminal-games-trailer.mp4)
 
-[Watch or download the trailer](https://github.com/Doyboy1005152/TerminalGames/raw/refs/heads/main/media/terminal-games-trailer.mp4).
+[Watch or download the trailer](https://github.com/Doyboy1005152/TerminalGames/raw/refs/heads/main/Assets/terminal-games-trailer.mp4).
 
 ## Installation
 
