@@ -2,6 +2,14 @@
 
 # Terminal Games
 
+
+
+
+https://github.com/user-attachments/assets/15eed024-e155-48e5-b9ef-44a38be8deee
+
+
+
+
 **An arcade in your terminal.** Play classic-style games, challenge friends, join parties, and unlock new ways to customize your game.
 
 ## Download
