@@ -6,7 +6,6 @@ on:
       - 'install-windows.bat'
       - 'install-mac.command'
       - 'install-linux.sh'
-      - 'terminal-games-installers.zip'
       - '.github/workflows/update-installers.yml'
   workflow_dispatch:
 permissions:
@@ -31,21 +30,15 @@ jobs:
           git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
           git fetch --depth=1 origin "$GITHUB_SHA"
           git checkout --detach FETCH_HEAD
-      - name: Validate installer bundle
+      - name: Validate standalone installers
         shell: bash
         run: |
           set -euo pipefail
           bash -n install-linux.sh
           bash -n install-mac.command
-          python3 - <<'PY'
-          from pathlib import Path
-          import zipfile
-          names = {'install-windows.bat', 'install-mac.command', 'install-linux.sh'}
-          with zipfile.ZipFile('terminal-games-installers.zip') as archive:
-              assert set(archive.namelist()) == names, 'Unexpected bundle contents'
-              for name in names:
-                  assert archive.read(name) == Path(name).read_bytes(), name
-          PY
+          test -s install-windows.bat
+          test -s install-mac.command
+          test -s install-linux.sh
       - name: Update existing public release attachments
         shell: bash
         run: |
@@ -53,11 +46,7 @@ jobs:
           # Keep the existing release title, notes, tag and public game version.
           gh release view Release >/dev/null
           mkdir -p release-assets
-          cp install-windows.bat install-mac.command install-linux.sh terminal-games-installers.zip release-assets/
-          # Refresh old direct-download names too, so existing links keep working.
-          cp install-windows.bat release-assets/INSTALL.WINDOWS.bat
-          cp install-mac.command release-assets/INSTALL.MAC.command
-          cp install-linux.sh release-assets/INSTALL.LINUX.sh
+          cp install-windows.bat install-mac.command install-linux.sh release-assets/
           gh release upload Release release-assets/* --clobber
           mkdir -p verify-assets
           for file in release-assets/*; do
@@ -65,4 +54,11 @@ jobs:
             gh release download Release --pattern "$name" --dir verify-assets
             cmp "$file" "verify-assets/$name"
           done
-          echo 'All seven installer attachments uploaded and verified.' >> "$GITHUB_STEP_SUMMARY"
+          # Keep only the three current installers; remove superseded duplicates.
+          gh release view Release --json assets --jq '.assets[].name' > "$RUNNER_TEMP/existing-assets.txt"
+          for obsolete in terminal-games-installers.zip Terminal-Games-Installers.zip INSTALL.WINDOWS.bat INSTALL.MAC.command INSTALL.LINUX.sh; do
+            if grep -Fxq "$obsolete" "$RUNNER_TEMP/existing-assets.txt"; then
+              gh release delete-asset Release "$obsolete" --yes
+            fi
+          done
+          echo 'Three standalone installers uploaded and verified.' >> "$GITHUB_STEP_SUMMARY"

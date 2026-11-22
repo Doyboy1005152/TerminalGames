@@ -6,11 +6,11 @@
 
 ## Download
 
-[![Download Terminal Games](./Assets/download-button.svg)](./terminal-games-installers.zip?raw=true)
+[![Download Terminal Games](./Assets/download-button.svg)](https://github.com/Doyboy1005152/TerminalGames/releases/tag/Release)
 
-**Windows · macOS · Linux**
+[**Windows**](./install-windows.bat?raw=true) · [**macOS**](./install-mac.command?raw=true) · [**Linux**](./install-linux.sh?raw=true)
 
-One ZIP contains installers for all three platforms. Download it, extract it, and run the installer for your computer. The installer downloads the latest public version of Terminal Games.
+Download only the installer for your computer. Each installer downloads the latest public version of Terminal Games. No ZIP extraction is needed.
 
 ## Discord
 
@@ -28,21 +28,19 @@ Find teammates, chat with other players, and follow updates.
 
 ### Windows
 
-1. Download the installer ZIP above.
-2. Right-click the ZIP and select **Extract All**.
-3. Open **`install-windows.bat`**.
-4. Follow the prompts to install and launch the game.
+1. Download **`install-windows.bat`** using the Windows link above.
+2. Open it and follow the prompts to install and launch the game.
 
 ### macOS
 
-1. Download and extract the installer ZIP.
+1. Download **`install-mac.command`** using the macOS link above.
 2. Open **`install-mac.command`**.
 3. Follow the prompts to install and launch the game.
 
 ### Linux
 
-1. Download and extract the installer ZIP.
-2. Open a terminal in the extracted folder.
+1. Download **`install-linux.sh`** using the Linux link above.
+2. Open a terminal in the folder containing the downloaded file.
 3. Run:
 
 ```sh
@@ -88,7 +86,7 @@ You don't need to download the project source to play.
 
 - **Display looks cramped?** Enlarge your terminal window.
 - **Can't connect?** Check your internet connection and try again later.
-- **Installer won't run?** Extract the ZIP first and make sure you're opening the file for your operating system.
+- **Installer won't run?** Make sure you're opening the installer for your operating system.
 - **Found a bug?** Open an issue in this repository with your operating system, game version, and steps to reproduce it. Screenshots help—leave out passwords and private account information.
 
 ---
