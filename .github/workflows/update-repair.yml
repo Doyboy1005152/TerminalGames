@@ -1,0 +1,60 @@
+name: Publish connection repair
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'repair/**'
+      - '.github/workflows/update-repair.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: connection-repair-release
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Fetch exact source
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          git fetch --depth=1 origin "$GITHUB_SHA"
+          git checkout --detach FETCH_HEAD
+      - name: Validate and package repair
+        run: |
+          set -euo pipefail
+          bash -n repair/repair-mac.command
+          bash -n repair/repair-linux.sh
+          python3 -m py_compile repair/repair.py
+          mkdir -p release-assets
+          cp repair/repair.py repair/repair-mac.command repair/repair-windows.bat repair/repair-linux.sh release-assets/
+          python3 - <<'PY'
+          from pathlib import Path
+          import zipfile,hashlib
+          root=Path('release-assets')
+          for platform,script in [('Mac','repair-mac.command'),('Windows','repair-windows.bat'),('Linux','repair-linux.sh')]:
+              with zipfile.ZipFile(root/('Terminal-Games-Repair-'+platform+'.zip'),'w',zipfile.ZIP_DEFLATED) as z:
+                  z.write('repair/'+script,script)
+                  z.write('repair/README.md','README.md')
+          (root/'SHA256SUMS.txt').write_text(''.join(hashlib.sha256(p.read_bytes()).hexdigest()+'  '+p.name+'\n' for p in sorted(root.iterdir())))
+          PY
+      - name: Publish separate repair release
+        run: |
+          set -euo pipefail
+          if ! gh release view repair >/dev/null 2>&1; then
+            gh release create repair --target "$GITHUB_SHA" --title 'Terminal Games Connection Repair' --notes-file repair/RELEASE.md --latest=false
+          fi
+          gh release upload repair release-assets/* --clobber
+          gh release edit repair --title 'Terminal Games Connection Repair' --notes-file repair/RELEASE.md --latest=false
+          mkdir -p verify-assets
+          gh release download repair --dir verify-assets
+          for file in release-assets/*; do
+            cmp "$file" "verify-assets/${file##*/}"
+          done

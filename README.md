@@ -1,6 +1,6 @@
 <div align="center">
 
-**Connection error after the outage?** Use the [one-time connection repair](repair/README.md)—no reinstall or new account required.
+**Connection error after the outage?** Use the [one-time connection repair download](https://github.com/Doyboy1005152/TerminalGames/releases/tag/repair)—no reinstall or new account required.
 
 ![Terminal Games](./Assets/banner.png)
 

@@ -1,5 +1,7 @@
 # Repair an existing Terminal Games connection
 
+**[Download the repair release (Mac / Windows / Linux)](https://github.com/Doyboy1005152/TerminalGames/releases/tag/repair)**
+
 This is **not a reinstall**. Close Terminal Games, run the repair for your device, then reopen your usual shortcut.
 
 - [Mac repair](https://github.com/Doyboy1005152/TerminalGames/raw/refs/heads/main/repair/repair-mac.command)
