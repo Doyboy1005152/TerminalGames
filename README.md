@@ -1,5 +1,7 @@
 <div align="center">
 
+**Connection error after the outage?** Use the [one-time connection repair](repair/README.md)—no reinstall or new account required.
+
 ![Terminal Games](./Assets/banner.png)
 
 # Your terminal. Your arcade.
