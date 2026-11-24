@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "main": "wss://childrens-scotia-prevention-korean.trycloudflare.com/play",
-  "dev": "wss://quest-teacher-records-williams.trycloudflare.com/play",
-  "updated_at": 1795543692.5063121
+  "main": "wss://games.blockahacker.com/play",
+  "dev": "wss://dev-games.blockahacker.com/play",
+  "updated_at": 1795548429.1265373
 }
