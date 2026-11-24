@@ -4,11 +4,13 @@
 
 This is **not a reinstall**. Close Terminal Games, run the repair for your device, then reopen your usual shortcut.
 
-- [Mac repair](https://github.com/Doyboy1005152/TerminalGames/raw/refs/heads/main/repair/repair-mac.command)
+- [Mac repair ZIP — download, unzip, then double-click](https://github.com/Doyboy1005152/TerminalGames/releases/download/repair/Terminal-Games-Repair-Mac.zip)
 - [Windows repair](https://github.com/Doyboy1005152/TerminalGames/raw/refs/heads/main/repair/repair-windows.bat)
 - [Linux repair](https://github.com/Doyboy1005152/TerminalGames/raw/refs/heads/main/repair/repair-linux.sh)
 
-On Mac, you can instead paste this into Terminal after closing the game:
+On Mac, use the ZIP above rather than saving the loose `.command` file from your browser. The ZIP preserves executable permission. Extract it, then double-click `repair-mac.command`.
+
+Optional Terminal alternative:
 
 ```sh
 curl --fail --location --proto '=https' --tlsv1.2 https://raw.githubusercontent.com/Doyboy1005152/TerminalGames/main/repair/repair.py -o /tmp/terminal-games-connection-repair.py && python3 /tmp/terminal-games-connection-repair.py

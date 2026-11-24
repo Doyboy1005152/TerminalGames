@@ -6,7 +6,7 @@ For existing copies that cannot connect after the address change. This is a conn
 2. Download the repair ZIP for your device below and extract it.
 3. Run the included repair script, then reopen your usual game shortcut.
 
-- **Mac:** `Terminal-Games-Repair-Mac.zip` — includes `repair-mac.command`.
+- **Mac:** [Download the Mac repair ZIP](https://github.com/Doyboy1005152/TerminalGames/releases/download/repair/Terminal-Games-Repair-Mac.zip), extract it, then double-click `repair-mac.command`. The ZIP preserves permission to run; use it instead of downloading the loose script.
 - **Windows:** `Terminal-Games-Repair-Windows.zip` — includes `repair-windows.bat`.
 - **Linux:** `Terminal-Games-Repair-Linux.zip` — includes `repair-linux.sh`; run with `sh repair-linux.sh`.
 
